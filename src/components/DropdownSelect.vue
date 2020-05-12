@@ -2,21 +2,26 @@
   <div
     class="dropdown-container"
     :class="{ opened: isOpen }"
-    @click="isOpen = true"
+    @click="openDropdown()"
   >
 
-    <!-- closed dropdown text -->
-    <span
-      v-if="!selectedItem"
-      class="closed-dropdown-text"
-    >
-      Select an item
+    <!-- closed dropdown text or input -->
+    <span v-show="!isOpen">
+      <span
+        v-if="!selectedItem"
+        class="closed-dropdown-text"
+      >
+        Select an item
+      </span>
+      <span
+        v-else
+        class="closed-dropdown-text selected-value-text"
+      >
+        {{selectedItem}}
+      </span>
     </span>
-    <span
-      v-else
-      class="closed-dropdown-text selected-value-text"
-    >
-      {{selectedItem}}
+    <span v-show="isOpen">
+      <input ref="search" type="text" placeholder="Search" class="search-dropdown-input">
     </span>
 
     <!-- chevron icon -->
@@ -63,6 +68,12 @@ export default {
     };
   },
   methods: {
+    openDropdown() {
+      this.isOpen = true
+      this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
+        this.$refs.search.focus()
+      })
+    },
     handleItemSelect(itemValue) {
       this.selectedItem = itemValue
       this.isOpen = false
@@ -132,5 +143,12 @@ export default {
   transform: rotate(180deg);
   /* changing svg fill color with a filer: */
   filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
+}
+
+.search-dropdown-input {
+  outline: none;
+  height: 24px;
+  width: calc(100% - 30px);
+  font-size: 16px;
 }
 </style>
