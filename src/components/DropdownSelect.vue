@@ -69,10 +69,12 @@ export default {
   },
   methods: {
     openDropdown() {
+      if (!this.isOpen) {
+        this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
+          this.$refs.search.focus()
+        })
+      }
       this.isOpen = true
-      this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
-        this.$refs.search.focus()
-      })
     },
     handleItemSelect(itemValue) {
       this.selectedItem = itemValue
