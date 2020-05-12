@@ -1,19 +1,32 @@
 <template>
-  <div class="dropdown-container">
+  <div
+    class="dropdown-container"
+    @click="isOpen = true"
+  >
     <span
       class="closed-dropdown-text"
     >
       Select an item
     </span>
 
-    <div
-      class="inline cursor-pointer z-1"
+    <span
+      class="cursor-pointer z-1"
     >
       <img
         class="float-right chevron-icon"
         src="../assets/chevron-down.svg"
       >
+    </span>
+
+    <div v-show="isOpen">
+      <div
+        v-for="(item, index) in items" :key="index"
+        class="my-4"
+      >
+        {{item}}
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -21,6 +34,15 @@
 export default {
   name: 'DropdownSelect',
   props: {
+    items: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      isOpen: false
+    };
   }
 }
 </script>

@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <DropdownSelect>
+    <DropdownSelect
+      :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
+    >
     </DropdownSelect>
   </div>
 </template>
