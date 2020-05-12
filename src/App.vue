@@ -19,8 +19,7 @@ export default {
 </script>
 
 <style>
-/* Lato in font-weight 600 not available on google fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;600&display=swap');
 
 #app {
   font-family: 'Lato', sans-serif;
