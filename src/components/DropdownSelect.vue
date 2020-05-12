@@ -4,14 +4,25 @@
     :class="{ opened: isOpen }"
     @click="isOpen = true"
   >
+
+    <!-- closed dropdown text -->
     <span
+      v-if="!selectedItem"
       class="closed-dropdown-text"
     >
       Select an item
     </span>
+    <span
+      v-else
+      class="closed-dropdown-text selected-value-text"
+    >
+      {{selectedItem}}
+    </span>
 
+    <!-- chevron icon -->
     <span
       class="cursor-pointer z-1"
+      @click.stop="isOpen = !isOpen"
     >
       <img
         class="float-right chevron-icon"
@@ -27,6 +38,7 @@
       <div
         v-for="(item, index) in items" :key="index"
         class="dropdown-item"
+        @click.stop="handleItemSelect(item)"
       >
         {{item}}
       </div>
@@ -46,8 +58,15 @@ export default {
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      selectedItem: null
     };
+  },
+  methods: {
+    handleItemSelect(itemValue) {
+      this.selectedItem = itemValue
+      this.isOpen = false
+    }
   }
 }
 </script>
@@ -71,6 +90,10 @@ export default {
   color: #A0AEC0;
 }
 
+.closed-dropdown-text.selected-value-text {
+  color: #1A202C;
+}
+
 .chevron-icon {
   margin-top: 9px;
 }
@@ -88,6 +111,7 @@ export default {
   font-size: 14px;
   line-height: 24px;
   font-weight: 600;
+  color: #1A202C;
 }
 
 .dropdown-item:hover {
@@ -100,10 +124,13 @@ export default {
 }
 
 .chevron-icon {
-  transition: .25s;
+  transition: transform .25s;
+  margin-right: 7px;
 }
 
 .chevron-icon.rotate {
   transform: rotate(180deg);
+  /* changing svg fill color with a filer: */
+  filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
 }
 </style>
