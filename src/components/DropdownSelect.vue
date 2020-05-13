@@ -2,7 +2,8 @@
   <div
     class="dropdown-container"
     :class="{ opened: isOpen }"
-    @click="openDropdown()"
+    @click="openDropdown"
+    v-clickoutside="closeDropdown"
   >
 
     <!-- closed dropdown text or input -->
@@ -50,7 +51,7 @@
       <span v-if="filteredItems.length > 0">
         <div
           v-for="(item, index) in filteredItems" :key="index"
-          class="dropdown-item"
+          class="dropdown-item clickable"
           @click.stop="handleItemSelect(item)"
         >
           {{item}}
@@ -95,9 +96,29 @@ export default {
         this.$refs.search.focus()
       })
     },
+    closeDropdown() {
+      this.isOpen = false
+    },
     handleItemSelect(itemValue) {
       this.selectedItem = itemValue
       this.isOpen = false
+    }
+  },
+  directives: {
+    clickoutside: {
+      bind: function (el, binding, vnode) {
+        el.eventOnClick = function (event) {
+            if (!el.contains(event.target)) {
+                // call method provided in the attribute value
+                vnode.context[binding.expression](event);
+            }
+        };
+        document.addEventListener('click', el.eventOnClick);
+      },
+      unbind: function (el) {
+        // remove eventListener once an element with this directive is removed from the DOM
+        document.removeEventListener('click', el.eventOnClick);
+      }
     }
   }
 }
@@ -146,7 +167,7 @@ export default {
   color: #1A202C;
 }
 
-.dropdown-item:hover {
+.dropdown-item.clickable:hover {
   cursor: pointer;
   color: #4299E1;
 }
@@ -162,7 +183,7 @@ export default {
 
 .chevron-icon.rotate {
   transform: rotate(180deg);
-  /* changing svg fill color with a filer: */
+  /* changing svg fill color with a filter: */
   filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
 }
 
