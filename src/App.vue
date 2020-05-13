@@ -4,9 +4,12 @@
       v-model="selectedItem"
       :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
       :searchInputPlaceholderText="'Search'"
+      :focusInputOnOpen="true"
     >
     </DropdownSelect>
-    {{selectedItem}}
+    <div class="mt-4">
+      {{selectedItem}}
+    </div>
   </div>
 </template>
 

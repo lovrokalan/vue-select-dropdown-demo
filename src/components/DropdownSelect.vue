@@ -85,6 +85,10 @@ export default {
     searchInputPlaceholderText: {
       type: String,
       default: 'This is a search input'
+    },
+    focusInputOnOpen: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
@@ -101,9 +105,11 @@ export default {
   methods: {
     openDropdown() {
       this.isOpen = true
-      this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
-        this.$refs.search.focus()
-      })
+      if (this.focusInputOnOpen) {
+        this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
+          this.$refs.search.focus()
+        })
+      }
     },
     closeDropdown() {
       this.isOpen = false
