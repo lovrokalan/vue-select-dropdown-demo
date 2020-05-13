@@ -26,7 +26,7 @@
         v-model="searchText"
         ref="search"
         type="text"
-        placeholder="Search"
+        :placeholder="searchInputPlaceholderText"
         class="search-dropdown-input"
       >
     </span>
@@ -44,6 +44,7 @@
     </span>
 
     <!-- extended dropdown -->
+    <transition name="height-slide">
     <div
       v-if="isOpen"
       class="dropdown-items-container"
@@ -64,6 +65,7 @@
         No items were found.
       </div>
     </div>
+    </transition>
 
   </div>
 </template>
@@ -75,6 +77,10 @@ export default {
     items: {
       type: Array,
       required: true
+    },
+    searchInputPlaceholderText: {
+      type: String,
+      default: 'This is a search input'
     }
   },
   data() {
@@ -161,6 +167,7 @@ export default {
 
 .dropdown-items-container {
   padding-top: 24px;
+  transform-origin: top;
 }
 
 .dropdown-item {
@@ -200,5 +207,16 @@ export default {
 
 .empty-list-msg {
   color: #A0AEC0;
+}
+
+/* vue transition styles: */
+.height-slide-enter-active {
+  transition: transform .25s;
+}
+
+.height-slide-enter {
+  -webkit-transform: scaleY(0);
+  -moz-transform: scaleY(0);
+  transform: scaleY(0);
 }
 </style>

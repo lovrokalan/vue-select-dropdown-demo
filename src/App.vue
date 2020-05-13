@@ -2,6 +2,7 @@
   <div id="app">
     <DropdownSelect
       :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
+      :searchInputPlaceholderText="'Search'"
     >
     </DropdownSelect>
   </div>
