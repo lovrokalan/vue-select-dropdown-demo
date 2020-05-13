@@ -21,13 +21,19 @@
       </span>
     </span>
     <span v-show="isOpen">
-      <input ref="search" type="text" placeholder="Search" class="search-dropdown-input">
+      <input
+        v-model="searchText"
+        ref="search"
+        type="text"
+        placeholder="Search"
+        class="search-dropdown-input"
+      >
     </span>
 
     <!-- chevron icon -->
     <span
       class="cursor-pointer z-1"
-      @click.stop="isOpen = !isOpen"
+      @click.stop="isOpen ? isOpen = false : openDropdown()"
     >
       <img
         class="float-right chevron-icon"
@@ -36,16 +42,25 @@
       >
     </span>
 
+    <!-- extended dropdown -->
     <div
-      v-show="isOpen"
+      v-if="isOpen"
       class="dropdown-items-container"
     >
+      <span v-if="filteredItems.length > 0">
+        <div
+          v-for="(item, index) in filteredItems" :key="index"
+          class="dropdown-item"
+          @click.stop="handleItemSelect(item)"
+        >
+          {{item}}
+        </div>
+      </span>
       <div
-        v-for="(item, index) in items" :key="index"
-        class="dropdown-item"
-        @click.stop="handleItemSelect(item)"
+        v-else
+        class="dropdown-item empty-list-msg"
       >
-        {{item}}
+        No items were found.
       </div>
     </div>
 
@@ -64,17 +79,21 @@ export default {
   data() {
     return {
       isOpen: false,
-      selectedItem: null
+      selectedItem: null,
+      searchText: ''
     };
+  },
+  computed: {
+    filteredItems() {
+      return this.items.filter(itemValue => itemValue.toLowerCase().includes(this.searchText))
+    }
   },
   methods: {
     openDropdown() {
-      if (!this.isOpen) {
-        this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
-          this.$refs.search.focus()
-        })
-      }
       this.isOpen = true
+      this.$nextTick(() => { //nextTick makes sure the search input is focused after it is displayed in the DOM
+        this.$refs.search.focus()
+      })
     },
     handleItemSelect(itemValue) {
       this.selectedItem = itemValue
@@ -152,5 +171,10 @@ export default {
   height: 24px;
   width: calc(100% - 30px);
   font-size: 16px;
+  color: #1A202C;
+}
+
+.empty-list-msg {
+  color: #A0AEC0;
 }
 </style>
