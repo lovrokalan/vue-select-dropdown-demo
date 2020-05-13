@@ -110,14 +110,17 @@ export default {
         el.eventOnClick = function (event) {
             if (!el.contains(event.target)) {
                 // call method provided in the attribute value
-                vnode.context[binding.expression](event);
+                vnode.context[binding.expression](event)
             }
         };
-        document.addEventListener('click', el.eventOnClick);
+        // add click and touchend event listeners
+        document.addEventListener('click', el.eventOnClick)
+        document.addEventListener('touchend', el.eventOnClick)
       },
       unbind: function (el) {
         // remove eventListener once an element with this directive is removed from the DOM
-        document.removeEventListener('click', el.eventOnClick);
+        document.removeEventListener('click', el.eventOnClick)
+        document.removeEventListener('touchend', el.eventOnClick)
       }
     }
   }
