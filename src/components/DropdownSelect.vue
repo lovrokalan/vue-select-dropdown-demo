@@ -9,7 +9,7 @@
     <!-- closed dropdown text or input -->
     <span v-show="!isOpen">
       <span
-        v-if="!selectedItem"
+        v-if="!value"
         class="closed-dropdown-text"
       >
         Select an item
@@ -18,7 +18,7 @@
         v-else
         class="closed-dropdown-text selected-value-text"
       >
-        {{selectedItem}}
+        {{value}}
       </span>
     </span>
     <span v-show="isOpen">
@@ -74,6 +74,10 @@
 export default {
   name: 'DropdownSelect',
   props: {
+    value: {
+      type: String,
+      default: ''
+    },
     items: {
       type: Array,
       required: true
@@ -86,9 +90,8 @@ export default {
   data() {
     return {
       isOpen: false,
-      selectedItem: null,
       searchText: ''
-    };
+    }
   },
   computed: {
     filteredItems() {
@@ -106,7 +109,7 @@ export default {
       this.isOpen = false
     },
     handleItemSelect(itemValue) {
-      this.selectedItem = itemValue
+      this.$emit('input', itemValue)
       this.isOpen = false
     }
   },

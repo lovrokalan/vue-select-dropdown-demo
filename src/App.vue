@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <DropdownSelect
+      v-model="selectedItem"
       :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
       :searchInputPlaceholderText="'Search'"
     >
     </DropdownSelect>
+    {{selectedItem}}
   </div>
 </template>
 
@@ -15,6 +17,11 @@ export default {
   name: 'App',
   components: {
     DropdownSelect
+  },
+  data() {
+    return {
+      selectedItem: ''
+    }
   }
 }
 </script>
