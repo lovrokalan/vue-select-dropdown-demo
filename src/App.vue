@@ -1,14 +1,19 @@
 <template>
   <div id="app">
-    <DropdownSelect
-      v-model="selectedItem"
-      :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
-      :searchInputPlaceholderText="'Search'"
-      :focusInputOnOpen="true"
-    >
-    </DropdownSelect>
-    <div class="mt-4">
-      {{selectedItem}}
+    <div class="demo-container mx-auto">
+
+      <DropdownSelect
+        v-model="selectedItem"
+        :items="['Broccoli', 'Lettuce', 'Peppers', 'Root vegetables', 'Cucumber', 'Parsley']"
+        :searchInputPlaceholderText="'Search'"
+        :focusInputOnOpen="true"
+      >
+      </DropdownSelect>
+
+      <div class="mt-4 ml-4">
+        Selected item: <span class="font-bold">{{selectedItem}}</span>
+      </div>
+
     </div>
   </div>
 </template>
@@ -36,12 +41,16 @@ export default {
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 50px;
+  padding: 50px 10px;
 }
 
 html,
 body {
   background-color: #EDF2F7;
+}
+
+.demo-container {
+  max-width: 256px;
 }
 
 </style>
