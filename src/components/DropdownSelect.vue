@@ -47,9 +47,9 @@
     <transition name="height-slide">
     <div
       v-if="isOpen"
-      class="dropdown-items-container"
+      class="dropdown-items-container overflow-auto"
     >
-      <span v-if="filteredItems.length > 0">
+      <div v-if="filteredItems.length > 0">
         <div
           v-for="(item, index) in filteredItems" :key="index"
           class="dropdown-item clickable"
@@ -57,7 +57,7 @@
         >
           {{item}}
         </div>
-      </span>
+      </div>
       <div
         v-else
         class="dropdown-item empty-list-msg"
@@ -169,8 +169,10 @@ export default {
 }
 
 .dropdown-items-container {
-  padding-top: 24px;
+  margin-top: 24px;
   transform-origin: top;
+  max-height: 204px;
+  margin-right: 6px;
 }
 
 .dropdown-item {
@@ -195,9 +197,13 @@ export default {
 }
 
 .chevron-icon.rotate {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
   transform: rotate(180deg);
   /* changing svg fill color with a filter: */
   filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
+  -webkit-filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
+  -moz-filter: brightness(0) saturate(100%) invert(15%) sepia(13%) saturate(570%) hue-rotate(138deg) brightness(93%) contrast(93%);
 }
 
 .search-dropdown-input {
