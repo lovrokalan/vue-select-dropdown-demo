@@ -10,10 +10,9 @@
       >
       </DropdownSelect>
 
-      <div class="mt-4 ml-4">
+      <div class="mt-8 ml-4">
         Selected item: <span class="font-bold">{{selectedItem}}</span>
       </div>
-
     </div>
   </div>
 </template>

@@ -34,7 +34,7 @@
     <!-- chevron icon -->
     <span
       class="cursor-pointer z-1"
-      @click.stop="isOpen ? isOpen = false : openDropdown()"
+      @click.stop="isOpen ? closeDropdown() : openDropdown()"
     >
       <img
         class="float-right chevron-icon"
@@ -86,7 +86,7 @@ export default {
       type: String,
       default: 'This is a search input'
     },
-    focusInputOnOpen: {
+    focusInputOnOpen: { // passing false is recommended for mobile devices
       type: Boolean,
       default: true
     }
@@ -113,10 +113,11 @@ export default {
     },
     closeDropdown() {
       this.isOpen = false
+      this.searchText = ''
     },
     handleItemSelect(itemValue) {
       this.$emit('input', itemValue)
-      this.isOpen = false
+      this.closeDropdown()
     }
   },
   directives: {
