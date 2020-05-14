@@ -3,6 +3,7 @@
     class="dropdown-container"
     :class="{ opened: isOpen }"
     @click="openDropdown"
+    ref="dropdown-container"
     v-clickoutside="closeDropdown"
   >
 
@@ -34,6 +35,7 @@
     <!-- chevron icon -->
     <span
       class="cursor-pointer z-1"
+      ref="icon-btn"
       @click.stop="isOpen ? closeDropdown() : openDropdown()"
     >
       <img
