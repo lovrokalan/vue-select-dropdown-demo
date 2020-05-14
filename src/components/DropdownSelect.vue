@@ -101,7 +101,8 @@ export default {
   },
   computed: {
     filteredItems() {
-      return this.items.filter(itemValue => itemValue.toLowerCase().includes(this.searchText))
+      // makes strings lower case and removes any spaces before comparing (for better search UX)
+      return this.items.filter(itemValue => itemValue.toLowerCase().replace(/\s+/g, '').includes(this.searchText.toLowerCase().replace(/\s+/g, '')))
     }
   },
   methods: {
